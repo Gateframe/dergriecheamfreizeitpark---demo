@@ -1,10 +1,9 @@
 import { ArrowUpRight, Instagram, Mail, MapPin } from "lucide-react";
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import heroPlate from "@/assets/hero-plate.png";
 import cardMenu from "@/assets/card-menu.png";
-import cardReservation from "@/assets/card-reservation.jpg";
+import cardReservation from "@/assets/card-reservation.png";
 import cardRestaurant from "@/assets/card-restaurant.png";
-import reviewsBadge from "@/assets/reviews-badge.png";
 import { useI18n } from "@/i18n";
 
 /** Slim luxury frame: same inset on all sides (~6–12px). */
@@ -17,7 +16,6 @@ export function Hero() {
   const { t } = useI18n();
   const [scroll, setScroll] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
-  const reviewsSparkId = useId().replace(/:/g, "");
 
   const cards = useMemo(
     () =>
@@ -51,12 +49,12 @@ export function Hero() {
         {
           Icon: Mail,
           labelKey: "social.mail" as const,
-          href: "mailto:info@restaurantdionysos.com",
+          href: "mailto:info@dergriecheamfreizeitpark.de",
         },
         {
           Icon: MapPin,
           labelKey: "social.location" as const,
-          href: "https://www.google.com/maps/search/?api=1&query=Restaurant+Dionysos%2C+Freisinger+Str.+3%2C+85386+Eching",
+          href: "https://www.google.com/maps/search/?api=1&query=K%C3%A4the+Winkelmann+Platz+3%2C+85375+Neufahrn",
         },
       ] as const,
     [],
@@ -113,104 +111,26 @@ export function Hero() {
           aria-hidden
         />
 
-        {/* Social icons above reviews badge — bottom-right stack (phone: safe-area, 44px taps, tighter gap) */}
-        <div className="pointer-events-auto absolute bottom-[max(1.75rem,calc(1rem+env(safe-area-inset-bottom,0px)))] right-[max(0.875rem,calc(0.5rem+env(safe-area-inset-right,0px)))] z-[25] flex flex-col items-end gap-2.5 sm:bottom-10 sm:right-6 sm:gap-3.5 lg:bottom-12 lg:right-8 lg:gap-4 xl:bottom-14 xl:right-10">
-          <div className="flex flex-row items-center gap-2 sm:gap-2.5" aria-label={t("hero.socialLabel")}>
-            {socialLinks.map(({ Icon, labelKey, href }) => (
-              <a
-                key={labelKey}
-                href={href}
-                aria-label={t(labelKey)}
-                {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="grid size-11 min-h-[44px] min-w-[44px] touch-manipulation place-items-center rounded-full border border-ivory/20 bg-[rgba(28,22,18,0.38)] text-ivory/85 shadow-[0_2px_20px_rgba(18,12,10,0.35)] backdrop-blur-sm transition-all hover:border-gold hover:text-gold sm:size-10 sm:min-h-0 sm:min-w-0"
-              >
-                <Icon className="h-[18px] w-[18px] sm:h-4 sm:w-4" />
-              </a>
-            ))}
-          </div>
-          <div className="pointer-events-none relative inline-flex max-w-[min(100%,calc(100vw-2.5rem-env(safe-area-inset-left,0px)-env(safe-area-inset-right,0px)))] rounded-[14px] shadow-[0_2px_20px_rgba(18,12,10,0.35)] sm:max-w-none sm:rounded-[18px]">
-            <div className="relative rounded-[14px] border border-ivory/20 bg-[rgba(28,22,18,0.38)] p-1.5 backdrop-blur-sm sm:rounded-[18px] sm:p-2.5">
-              <img
-                src={reviewsBadge}
-                alt={t("hero.reviewsAlt")}
-                className="relative z-0 mx-auto block w-[122px] max-w-full opacity-90 drop-shadow-[0_4px_18px_rgba(0,0,0,0.45)] sm:mx-0 sm:w-[139px]"
-                loading="lazy"
-              />
-            </div>
-            {/* Gold light traveling along the stroke of the rounded rect */}
-            <svg
-              className="pointer-events-none absolute inset-0 z-10 h-full w-full overflow-visible"
-              width="100%"
-              height="100%"
-              aria-hidden
+        {/* Social icons — bottom-right (phone: safe-area, 44px taps) */}
+        <div
+          className="pointer-events-auto absolute bottom-[max(1.75rem,calc(1rem+env(safe-area-inset-bottom,0px)))] right-[max(0.875rem,calc(0.5rem+env(safe-area-inset-right,0px)))] z-[25] flex flex-row items-center gap-2 sm:bottom-10 sm:right-6 sm:gap-2.5 lg:bottom-12 lg:right-8 xl:bottom-14 xl:right-10"
+          aria-label={t("hero.socialLabel")}
+        >
+          {socialLinks.map(({ Icon, labelKey, href }) => (
+            <a
+              key={labelKey}
+              href={href}
+              aria-label={t(labelKey)}
+              {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="grid size-11 min-h-[44px] min-w-[44px] touch-manipulation place-items-center rounded-full border border-ivory/20 bg-[rgba(28,22,18,0.38)] text-ivory/85 shadow-[0_2px_20px_rgba(18,12,10,0.35)] backdrop-blur-sm transition-all hover:border-gold hover:text-gold sm:size-10 sm:min-h-0 sm:min-w-0"
             >
-              <defs>
-                <filter
-                  id={`${reviewsSparkId}-tail`}
-                  x="-50%"
-                  y="-50%"
-                  width="200%"
-                  height="200%"
-                >
-                  <feGaussianBlur in="SourceGraphic" stdDeviation="2.2" result="g" />
-                  <feMerge>
-                    <feMergeNode in="g" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-                <filter
-                  id={`${reviewsSparkId}-head`}
-                  x="-80%"
-                  y="-80%"
-                  width="260%"
-                  height="260%"
-                >
-                  <feGaussianBlur in="SourceGraphic" stdDeviation="0.35" result="g" />
-                  <feMerge>
-                    <feMergeNode in="g" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-              {/* Soft tail — slightly longer segment along path */}
-              <rect
-                className="reviews-badge-spark-ring reviews-badge-spark-travel"
-                x="1"
-                y="1"
-                width="calc(100% - 2px)"
-                height="calc(100% - 2px)"
-                fill="none"
-                pathLength={100}
-                stroke="var(--gold)"
-                strokeOpacity={0.38}
-                strokeWidth={1.75}
-                strokeLinecap="round"
-                strokeDasharray="1.35 98.65"
-                strokeDashoffset={0}
-                filter={`url(#${reviewsSparkId}-tail)`}
-              />
-              {/* Tiny very bright head at the leading end of the tail */}
-              <rect
-                className="reviews-badge-spark-ring reviews-badge-spark-travel"
-                x="1"
-                y="1"
-                width="calc(100% - 2px)"
-                height="calc(100% - 2px)"
-                fill="none"
-                pathLength={100}
-                stroke="#ffffff"
-                strokeWidth={2.25}
-                strokeLinecap="round"
-                strokeDasharray="0.38 99.62"
-                strokeDashoffset={0}
-                filter={`url(#${reviewsSparkId}-head)`}
-              />
-            </svg>
-          </div>
+              <Icon className="h-[18px] w-[18px] sm:h-4 sm:w-4" />
+            </a>
+          ))}
         </div>
 
-        {/* Editorial headline — lower-left (phone: extra right inset so copy clears floating social + badge) */}
-        <div className="absolute inset-0 z-20 flex flex-col justify-end pt-32 pb-[max(2rem,calc(1rem+env(safe-area-inset-bottom,0px)))] pl-5 pr-5 max-sm:pl-4 max-sm:pr-40 sm:pb-10 sm:pl-8 sm:pr-8 lg:pb-12 lg:pl-10 lg:pr-16 xl:pb-14 xl:pl-14">
+        {/* Editorial headline — lower-left (phone: extra right inset so copy clears floating social row) */}
+        <div className="absolute inset-0 z-20 flex flex-col justify-end pt-32 pb-[max(2rem,calc(1rem+env(safe-area-inset-bottom,0px)))] pl-5 pr-5 max-sm:pl-4 max-sm:pr-32 sm:pb-10 sm:pl-8 sm:pr-8 lg:pb-12 lg:pl-10 lg:pr-16 xl:pb-14 xl:pl-14">
           <div className="max-w-[min(100%,42rem)]">
             <span className="eyebrow mb-2 block animate-[fade-in_1s_ease-out_0.2s_both] sm:mb-3">
               {t("hero.establishment")}

@@ -10,7 +10,7 @@ import { translations } from "@/i18n/translations";
 
 const de = translations.de;
 
-/** Set `VITE_SITE_URL` (e.g. https://restaurantdionysos.com) in production so og:image is an absolute URL. */
+/** Set `VITE_SITE_URL` in production so og:image is an absolute URL. */
 function ogImageUrl(): string {
   const path = "/og-hero.png";
   const base = import.meta.env.VITE_SITE_URL;
@@ -23,23 +23,32 @@ function ogImageUrl(): string {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Restaurant",
-  name: "Dionysos",
+  name: de["brand.name"],
   description: de["meta.rootDesc"],
   servesCuisine: ["Greek", "Mediterranean"],
   priceRange: "$$$$",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Freisinger Str. 3",
-    addressLocality: "Eching",
-    postalCode: "85386",
+    streetAddress: "Käthe Winkelmann Platz 3",
+    addressLocality: "Neufahrn",
+    postalCode: "85375",
     addressCountry: "DE",
   },
-  telephone: "+49 81 65 707 744",
-  openingHours: [
-    "Mo-Th,Su 11:00-15:00",
-    "Mo-Th,Su 17:30-23:00",
-    "Fr-Sa 11:00-15:00",
-    "Fr-Sa 17:30-00:00",
+  telephone: "+4981656099330",
+  email: "info@dergriecheamfreizeitpark.de",
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      opens: "11:30",
+      closes: "14:30",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      opens: "17:30",
+      closes: "22:30",
+    },
   ],
   image: ogImageUrl(),
 };
@@ -47,23 +56,21 @@ const jsonLd = {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dionysos — Exklusive Griechische Kulinarik" },
+      { title: de["meta.rootTitle"] },
       {
         name: "description",
-        content:
-          "Dionysos: exklusive griechische Kulinarik — edles Ambiente, saisonale Küche und ein unvergessliches Erlebnis.",
+        content: de["meta.rootDesc"],
       },
-      { property: "og:title", content: "Dionysos — Exklusive Griechische Kulinarik" },
+      { property: "og:title", content: de["meta.rootTitle"] },
       {
         property: "og:description",
-        content:
-          "Raffinierte griechische Küche in stilvollem Rahmen. Reservieren Sie Ihren Tisch.",
+        content: de["meta.rootDesc"],
       },
       { property: "og:type", content: "website" },
       { property: "og:image", content: ogImageUrl() },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "Dionysos — Hero" },
+      { property: "og:image:alt", content: de["brand.name"] },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: ogImageUrl() },
     ],

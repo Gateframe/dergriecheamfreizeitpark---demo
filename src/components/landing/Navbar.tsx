@@ -1,13 +1,21 @@
+import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu as MenuIcon } from "lucide-react";
-import { useEffect, useState } from "react";
-import logoDionysos from "@/assets/logo-dionysos.png";
+import { useEffect, useState, type MouseEvent } from "react";
+import brandLogo from "@/assets/logo-der-grieche-am-freizeitpark.png";
 import { useI18n } from "@/i18n";
 import type { Locale } from "@/i18n/types";
 
 export function Navbar() {
   const { locale, setLocale, t } = useI18n();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [open, setOpen] = useState(false);
   const [navVisible, setNavVisible] = useState(false);
+
+  function goToHero(event: MouseEvent<HTMLAnchorElement>) {
+    if (pathname !== "/") return;
+    event.preventDefault();
+    document.getElementById("hero")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
   const links = [
     { label: t("nav.menu"), href: "#menu" },
@@ -50,20 +58,22 @@ export function Navbar() {
             className="pointer-events-auto mx-[2px] my-5 flex h-[62px] w-full max-w-[560px] items-center justify-between rounded-full border border-white/[0.14] bg-[rgba(32,26,22,0.42)] px-4 py-0 shadow-[0_4px_32px_rgba(18,12,10,0.35)] backdrop-blur-2xl sm:max-w-[641px] sm:px-4"
             aria-label={t("nav.main")}
           >
-            <a
-              href="#hero"
+            <Link
+              to="/"
+              hash="hero"
+              onClick={goToHero}
               aria-label={t("nav.home")}
               className="m-0 flex h-full shrink-0 items-center pr-1.5 pl-0 opacity-95 transition-opacity hover:opacity-100 sm:pr-3"
             >
               <img
-                src={logoDionysos}
-                alt="Dionysos"
+                src={brandLogo}
+                alt={t("brand.name")}
                 width={176}
-                height={70}
+                height={88}
                 className="h-[42px] w-auto object-contain object-left sm:h-[44px]"
                 decoding="async"
               />
-            </a>
+            </Link>
 
             <div className="hidden h-full items-center gap-6 md:flex md:gap-7">
               {links.map((l) => (

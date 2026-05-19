@@ -62,13 +62,6 @@
     from { opacity: 0; }
     to { opacity: 1; }
   }
-
-  /** Traveling highlight along an SVG stroke (reviews badge frame). */
-  @keyframes reviews-badge-spark-travel {
-    to {
-      stroke-dashoffset: -100;
-    }
-  }
 }
 
 :root {
@@ -161,27 +154,5 @@
   .reveal.in-view {
     opacity: 1;
     transform: translateY(0);
-  }
-
-  /** Rounded rect matches Hero reviews chip: 14px mobile, 18px sm+. */
-  .reviews-badge-spark-ring {
-    rx: 14px;
-    ry: 14px;
-  }
-  @media (min-width: 640px) {
-    .reviews-badge-spark-ring {
-      rx: 18px;
-      ry: 18px;
-    }
-  }
-
-  .reviews-badge-spark-travel {
-    animation: reviews-badge-spark-travel 3.2s linear infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .reviews-badge-spark-travel {
-      animation: none;
-    }
   }
 }

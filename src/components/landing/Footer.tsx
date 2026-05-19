@@ -1,5 +1,5 @@
 import { Instagram, MapPin, Clock, Phone } from "lucide-react";
-import logoDionysos from "@/assets/logo-dionysos.png";
+import brandLogo from "@/assets/logo-der-grieche-am-freizeitpark.png";
 import { useI18n } from "@/i18n";
 
 export function Footer() {
@@ -10,10 +10,10 @@ export function Footer() {
         <div className="grid items-start gap-y-10 md:grid-cols-2 md:gap-x-12 lg:grid-cols-[1.15fr_0.9fr_1.25fr_1fr] lg:gap-x-10 xl:gap-x-14">
           <div className="max-w-[17rem]">
             <img
-              src={logoDionysos}
-              alt="Dionysos"
+              src={brandLogo}
+              alt={t("brand.name")}
               width={240}
-              height={96}
+              height={120}
               className="h-20 w-auto object-contain object-left sm:h-24"
               decoding="async"
             />
@@ -21,41 +21,38 @@ export function Footer() {
           </div>
 
           <Block icon={MapPin} title={t("footer.visit")}>
-            Freisinger Str. 3
+            {t("footer.addressStreet")}
             <br />
-            85386 Eching
+            {t("footer.addressCity")}
           </Block>
 
           <Block icon={Clock} title={t("footer.hours")}>
             <div className="space-y-3">
               <p>
-                <span className="block text-ivory">{t("footer.hoursWeekday")}</span>
-                <span className="block whitespace-nowrap">11:00 – 15:00 · 17:30 – 23:00</span>
+                <span className="block text-ivory">{t("footer.hoursIntro")}</span>
+                <span className="block whitespace-nowrap">{t("footer.hoursLunch")}</span>
+                <span className="block whitespace-nowrap">{t("footer.hoursDinner")}</span>
               </p>
               <p>
-                <span className="block text-ivory">{t("footer.hoursWeekend")}</span>
-                <span className="block whitespace-nowrap">11:00 – 15:00 · 17:30 – 00:00</span>
+                <span className="block text-ivory">{t("footer.hoursClosed")}</span>
               </p>
             </div>
           </Block>
 
           <Block icon={Phone} title={t("footer.contact")}>
             <div className="space-y-3">
-              <a href="tel:+498165707744" className="block transition-colors hover:text-gold">
-                +49 81 65 707 744
+              <a href="tel:+4981656099330" className="block transition-colors hover:text-gold">
+                +49 8165 6099330
               </a>
               <a
-                href="mailto:info@restaurantdionysos.com"
+                href="mailto:info@dergriecheamfreizeitpark.de"
                 className="block transition-colors hover:text-gold"
               >
-                info@restaurantdionysos.com
+                info@dergriecheamfreizeitpark.de
               </a>
-              <a
-                href="https://www.instagram.com/dionysos_eching/"
-                className="inline-flex items-center gap-2 transition-colors hover:text-gold"
-              >
-                <Instagram className="h-3.5 w-3.5" /> @dionysos_eching
-              </a>
+              <span className="inline-flex items-center gap-2 text-ivory/70">
+                <Instagram className="h-3.5 w-3.5" /> {t("social.instagram")}
+              </span>
               <button
                 type="button"
                 onClick={() => {
@@ -71,7 +68,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-6 text-xs uppercase tracking-[0.22em] text-muted-foreground sm:flex-row sm:items-center">
           <span>
-            © {new Date().getFullYear()} Dionysos. {t("footer.copyright")}
+            © {new Date().getFullYear()} {t("brand.name")}. {t("footer.copyright")}
           </span>
           <span>{t("footer.crafted")}</span>
         </div>

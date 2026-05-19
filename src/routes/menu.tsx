@@ -8,6 +8,7 @@ import { MENU_SECTIONS_DE } from "@/data/restaurant-menu-de";
 import { MENU_SECTIONS_EN } from "@/data/restaurant-menu-en";
 import { buildFeaturedBlocks } from "@/data/restaurant-menu-featured";
 import { useI18n } from "@/i18n";
+import { translations } from "@/i18n/translations";
 import menuIntroBackground from "@/assets/menu-intro-bg.png";
 import marbleBackground from "@/assets/menu-marble-bg.png";
 import menuPhoto1 from "@/assets/menu-photo-1.png";
@@ -15,29 +16,39 @@ import menuPhoto2 from "@/assets/menu-photo-2.png";
 import menuPhoto3 from "@/assets/menu-photo-3.png";
 import menuPhoto4 from "@/assets/menu-photo-4.png";
 import menuPhoto5 from "@/assets/menu-photo-5.png";
+import menuPhoto6 from "@/assets/menu-photo-6.png";
+import menuPhoto7 from "@/assets/menu-photo-7.png";
+import menuPhoto8 from "@/assets/menu-photo-8.png";
+
+const de = translations.de;
 
 const DEFAULT_SI = 6;
 const DEFAULT_II = 4;
 
-const menuPhotos = [menuPhoto1, menuPhoto2, menuPhoto3, menuPhoto4, menuPhoto5] as const;
+/** Food photos rotated across menu items (stable per dish, varied across the menu). */
+const menuPhotos = [
+  menuPhoto1,
+  menuPhoto2,
+  menuPhoto3,
+  menuPhoto4,
+  menuPhoto5,
+  menuPhoto6,
+  menuPhoto7,
+  menuPhoto8,
+] as const;
 
 function getImageForDishIndices(si: number, ii: number) {
-  const key = `${si}:${ii}`;
-  let hash = 0;
-  for (let index = 0; index < key.length; index += 1) {
-    hash = (hash * 31 + key.charCodeAt(index)) % menuPhotos.length;
-  }
-  return menuPhotos[hash];
+  const index = (si * 17 + ii * 31 + si * ii) % menuPhotos.length;
+  return menuPhotos[index];
 }
 
 export const Route = createFileRoute("/menu")({
   head: () => ({
     meta: [
-      { title: "Speisekarte — Restaurant Dionysos Eching" },
+      { title: de["meta.menuTitle"] },
       {
         name: "description",
-        content:
-          "Speisekarte Restaurant Dionysos: griechische Vorspeisen, Meeresfrüchte, Gyros, Grill-Spezialitäten, Desserts, Weine und Getränke.",
+        content: de["meta.menuDesc"],
       },
     ],
     links: [

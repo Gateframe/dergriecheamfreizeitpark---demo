@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/compone
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useI18n } from "@/i18n";
-import bg from "@/assets/reservation-bg.png";
+import reservationRoom from "@/assets/card-reservation.png";
 
 export function ReservationCTA() {
   const { t } = useI18n();
@@ -15,15 +15,7 @@ export function ReservationCTA() {
   const [submitted, setSubmitted] = useState(false);
 
   const timeWindows = useMemo(
-    () =>
-      [
-        t("reservation.time1"),
-        t("reservation.time2"),
-        t("reservation.time3"),
-        t("reservation.time4"),
-        t("reservation.time5"),
-        t("reservation.time6"),
-      ],
+    () => [t("reservation.time1"), t("reservation.time2"), t("reservation.time3"), t("reservation.time4"), t("reservation.time5")],
     [t],
   );
 
@@ -65,12 +57,13 @@ export function ReservationCTA() {
           className="reveal relative mx-auto flex min-h-[70vh] max-w-[1600px] items-center justify-center overflow-hidden rounded-3xl"
         >
           <img
-            src={bg}
-            alt={t("reservation.ariaRoom")}
+            src={reservationRoom}
+            alt={t("hero.cardReservation.alt")}
             loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover brightness-[1.05] contrast-[1.05] saturate-[1.06]"
+            className="absolute inset-0 h-full w-full object-cover object-center brightness-[0.72] contrast-[1.04] saturate-[1.02]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[rgba(34,26,20,0.68)] via-[rgba(26,20,16,0.32)] to-[rgba(18,14,12,0.18)]" />
+          <div className="absolute inset-0 bg-[rgba(10,8,6,0.28)]" aria-hidden />
+          <div className="absolute inset-0 bg-gradient-to-t from-[rgba(12,9,7,0.88)] via-[rgba(18,14,12,0.58)] to-[rgba(22,18,15,0.42)]" aria-hidden />
 
           <div className="relative z-10 max-w-2xl px-6 py-20 text-center">
             <span className="eyebrow">{t("reservation.eyebrow")}</span>
